@@ -15,6 +15,8 @@ def trans(v, fonts):
     vv = v.decode('utf-8')
     replaces = [
         (u'\u2026', '...'),
+        (u'\u201c', '"'),
+        (u'\u201d', '"'),
     ]
     for f, t in replaces:
         vv = vv.replace(f, t)
