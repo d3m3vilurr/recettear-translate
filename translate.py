@@ -18,10 +18,11 @@ def trans(v, fonts):
 def load_text_table(fonts):
     f = urllib.urlopen(config.SHEET_URL)
     text_map = dict()
-    for l in f.readlines():
+    for n, l in enumerate(f.readlines()):
+        # skip first line
+        if not n:
+            continue
         v = l.split('\t')
-        if v[2]:
-            print v[0]
         text_map[v[0]] = trans(v[2], fonts) or v[1]
     return text_map
 
@@ -30,7 +31,7 @@ text_map = load_text_table(fonts)
 
 def translate():
     for fn in sorted(glob.glob('ext/**/*.msgid')):
-        out_fn = fn.replace('ext/', 'out/').replace('.msgid', '')
+        out_fn = fn.replace('ext/', config.out + '/').replace('.msgid', '')
         outdir = os.path.dirname(out_fn)
         if not os.path.exists(outdir):
             os.makedirs(outdir)
