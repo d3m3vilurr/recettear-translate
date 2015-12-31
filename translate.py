@@ -13,6 +13,11 @@ def load_font_table():
 
 def trans(v, fonts):
     vv = v.decode('utf-8')
+    replaces = [
+        (u'\u2026', '...'),
+    ]
+    for f, t in replaces:
+        vv = vv.replace(f, t)
     return [fonts.get(x, x) for x in vv]
 
 def load_text_table(fonts):
