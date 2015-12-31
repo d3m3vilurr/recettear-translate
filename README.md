@@ -4,7 +4,7 @@
 https://goo.gl/wyFpWG
 
 ## Patch
-https://goo.gl/qko5mM
+https://goo.gl/PLhX8k
 
 ## How to apply patch
 1. download patch
