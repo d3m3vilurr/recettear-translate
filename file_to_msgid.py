@@ -67,6 +67,30 @@ def from_snews(t):
             w.write(':'.join(v))
             w.write('\r\n')
 
+def from_kyaku_data(t):
+    IDX = 0
+    fn = 'ext/data/kyaku.txt'
+    with open(fn) as r, open(fn + '.msgid', 'w') as w:
+        for l in r.readlines():
+            v = l.rstrip().split(':', 5)
+            if len(v) < 2:
+                w.write(l)
+                continue
+            try:
+                int(v[0])
+            except ValueError:
+                w.write(l)
+                continue
+            if ('%03d' % int(v[0])) != v[0]:
+                w.write(l)
+                continue
+            IDX += 1
+            key = 'KYAKUNAME%04d' % IDX
+            t.write(('%s\t%s\r\n' % (key, v[1])))
+            v[1] = key
+            w.write(':'.join(v))
+            w.write('\r\n')
+
 def from_data(t):
     # tuto*
     from_tuto(t)
@@ -74,6 +98,8 @@ def from_data(t):
     from_news(t)
     # snews
     from_snews(t)
+    # kyaku
+    from_kyaku_data(t)
     # TODO
     # oder
     # item
